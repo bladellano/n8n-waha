@@ -1,0 +1,24 @@
+services:
+  waha:
+    container_name: waha-mac
+    image: devlikeapro/waha
+    platform: linux/amd64
+    environment:
+      - WHATSAPP_DEFAULT_ENGINE=${WHATSAPP_DEFAULT_ENGINE}
+      - WHATSAPP_HOOK_EVENTS=${WHATSAPP_HOOK_EVENTS}
+      - WHATSAPP_HOOK_URL=${WHATSAPP_HOOK_URL}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./tmp:/tmp
+
+  n8n:
+    container_name: n8n-mac
+    image: n8nio/n8n
+    environment:
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+    ports:
+      - "5678:5678"
+    volumes:
+      - ./n8n_data:/home/node/.n8n

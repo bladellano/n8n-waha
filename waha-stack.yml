@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  waha:
+    container_name: waha
+    image: devlikeapro/waha
+    volumes:
+      - waha_data:/tmp # Criar o volume no portainer.
+    environment:
+      - WHATSAPP_DEFAULT_ENGINE=NOWEB
+      - WHATSAPP_HOOK_EVENTS=message
+      - WHATSAPP_HOOK_URL=https://webhook.cdnssystems.com.br
+    networks:
+      - n8ncdnssystemsnet
+    ports:
+      - "3000:3000"
+
+networks:
+  n8ncdnssystemsnet:
+    external: true
+
+volumes:
+  waha_data:
+    external: true
+    name: waha_data # Criar o volume no portainer.
+
+# Este arquivo é um exemplo de configuração do docker-compose para o Waha e o n8n para utilizar na VPS com Orion.
