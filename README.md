@@ -17,8 +17,17 @@ $ git clone https://github.com/bladellano/n8n-waha.git
 
 $ cd n8n-waha
 
-$ make install
+$ cp .env.example .env
+
+$ make up
 ```
+---
+## Acesso
+
+N8n: http://127.0.0.1:5678
+
+Waha: http://127.0.0.1:3000
+
 ---
 - **Variáveis de Ambiente n8n**:
   - `GENERIC_TIMEZONE=America/Sao_Paulo`
