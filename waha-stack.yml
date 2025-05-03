@@ -12,8 +12,16 @@ services:
       - WHATSAPP_HOOK_URL=https://webhook.cdnssystems.com.br
     networks:
       - n8ncdnssystemsnet
-    ports:
-      - "3000:3000"
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.waha.rule=Host(`waha.cdnssystems.com.br`)"
+        - "traefik.http.routers.waha.entrypoints=websecure"
+        - "traefik.http.services.waha.loadbalancer.server.port=3000"
+        - "traefik.http.routers.waha.tls.certresolver=letsencryptresolver"
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
 networks:
   n8ncdnssystemsnet:
