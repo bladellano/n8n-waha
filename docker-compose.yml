@@ -15,10 +15,15 @@ services:
   n8n:
     container_name: n8n-mac
     image: n8nio/n8n
+    user: node
     environment:
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
       - WEBHOOK_URL=${WEBHOOK_URL}
+      - N8N_USER_FOLDER=/home/node/.n8n
+      - N8N_CACHE_FOLDER=/home/node/.cache
     ports:
       - "5678:5678"
     volumes:
       - ./n8n_data:/home/node/.n8n
+      - ./n8n_data:/home/node/.npm
+      - ./n8n_cache:/home/node/.cache
