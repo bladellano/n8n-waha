@@ -1,16 +1,22 @@
 services:
   waha:
     container_name: waha-mac
-    image: devlikeapro/waha
+    image: devlikeapro/waha:chrome-2025.10.2
     platform: linux/amd64
     environment:
-      - WHATSAPP_DEFAULT_ENGINE=${WHATSAPP_DEFAULT_ENGINE}
-      - WHATSAPP_HOOK_EVENTS=${WHATSAPP_HOOK_EVENTS}
-      - WHATSAPP_HOOK_URL=${WHATSAPP_HOOK_URL}
+      - WAHA_API_KEY=sha512:f1df2464aba40ec66b1920ac8defe8e88c48e19e485046a51ac6f983c08f58cae24dfda31d9be693ed167f9ec935e92c46d1a8a53549416c36212b5faf29029e
+      - WHATSAPP_SWAGGER_ENABLED=true
+      - WHATSAPP_SWAGGER_USERNAME=admin
+      - WHATSAPP_SWAGGER_PASSWORD=admin
+      - WHATSAPP_DEFAULT_ENGINE=NOWEB
+      - WHATSAPP_HOOK_EVENTS=message
+      - WHATSAPP_HOOK_URL=http://host.docker.internal:5678/webhook/211dc96e-3076-4201-9212-cb6ba8055ca6/waha
     ports:
       - "3000:3000"
     volumes:
       - ./tmp:/tmp
+    networks:
+      - waha-network
 
   n8n:
     container_name: n8n-mac
@@ -27,3 +33,7 @@ services:
       - ./n8n_data:/home/node/.n8n
       - ./n8n_data:/home/node/.npm
       - ./n8n_cache:/home/node/.cache
+
+networks:
+  waha-network:
+    driver: bridge

@@ -16,3 +16,6 @@ build:
 
 prune:
 	$(DC) down --remove-orphans -v
+
+in:
+	$(DC) exec n8n sh
